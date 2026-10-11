@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "Student": {
+      "title": "Student",
+      "description": "Registered college student user profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique student identifier" },
+        "name": { "type": "string", "description": "Full name of student" },
+        "email": { "type": "string", "description": "College email address" },
+        "department": { "type": "string", "description": "Academic department" },
+        "year": { "type": "string", "description": "Academic year" },
+        "rollNumber": { "type": "string", "description": "Campus roll or enrollment number" },
+        "createdAt": { "type": "string", "description": "Account registration timestamp" }
+      },
+      "required": ["id", "name", "email", "department", "year"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Administrator account with management permissions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Admin identifier" },
+        "name": { "type": "string", "description": "Admin full name" },
+        "email": { "type": "string", "description": "Admin official email" },
+        "role": { "type": "string", "description": "Role title" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["id", "name", "email", "role"]
+    },
+    "Item": {
+      "title": "Item",
+      "description": "Lost or found item report on campus",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Item report identifier" },
+        "title": { "type": "string", "description": "Title or name of the item" },
+        "category": { "type": "string", "description": "Category such as Electronics, Documents, Books, etc." },
+        "description": { "type": "string", "description": "Detailed description of item" },
+        "type": { "type": "string", "enum": ["LOST", "FOUND"], "description": "Report type: LOST or FOUND" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED", "CLAIMED", "RESOLVED"], "description": "Verification status" },
+        "location": { "type": "string", "description": "Campus location where item was lost or found" },
+        "date": { "type": "string", "description": "Date incident occurred (YYYY-MM-DD)" },
+        "imageUrl": { "type": "string", "description": "Optional image URL of item" },
+        "studentId": { "type": "string", "description": "ID of reporting student" },
+        "studentName": { "type": "string", "description": "Name of reporting student" },
+        "studentEmail": { "type": "string", "description": "Email of reporting student" },
+        "createdAt": { "type": "string", "description": "Submission timestamp" },
+        "updatedAt": { "type": "string", "description": "Last status modification timestamp" }
+      },
+      "required": ["id", "title", "category", "description", "type", "status", "location", "date", "studentId"]
+    },
+    "ItemClaim": {
+      "title": "ItemClaim",
+      "description": "Claim submitted by a student for a found item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique claim identifier" },
+        "itemId": { "type": "string", "description": "Reference to found item ID" },
+        "itemTitle": { "type": "string", "description": "Cached title of item" },
+        "studentId": { "type": "string", "description": "ID of claimant student" },
+        "studentName": { "type": "string", "description": "Name of claimant student" },
+        "studentEmail": { "type": "string", "description": "Email of claimant student" },
+        "reason": { "type": "string", "description": "Ownership proof and verification description" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED"], "description": "Claim verification status" },
+        "createdAt": { "type": "string", "description": "Claim submission timestamp" },
+        "updatedAt": { "type": "string", "description": "Claim decision timestamp" }
+      },
+      "required": ["id", "itemId", "studentId", "reason", "status"]
+    }
+  },
+  "firestore": {
+    "/students/{studentId}": {
+      "schema": "Student",
+      "description": "Registered college student profiles"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Campus lost and found administrators"
+    },
+    "/items/{itemId}": {
+      "schema": "Item",
+      "description": "Campus lost and found reports"
+    },
+    "/item_claims/{claimId}": {
+      "schema": "ItemClaim",
+      "description": "Student claims for found items"
+    }
+  }
+}

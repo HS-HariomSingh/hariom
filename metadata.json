@@ -1,0 +1,6 @@
+{
+  "name": "Lost and Found - College DBMS",
+  "description": "College campus Lost and Found portal for students and administrators to report, manage, and resolve lost and found items.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
